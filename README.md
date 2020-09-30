@@ -12,7 +12,7 @@ Para rodar no gem5:
 
 Dados: diabetes.csv
  - versão pequena diabetesP.csv
- - versão grnade diabetesG.csv
+ - versão grande diabetesG.csv
 
 Para compilar: make
 Para executar: .\CrossFold_Kvizinhos
