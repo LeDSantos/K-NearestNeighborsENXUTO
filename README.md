@@ -2,10 +2,11 @@
 Letícia dos Santos - Aprendizado de Máquina
 
 Implementação K-NearestNeighbors, K vizinhos mais próximos.
+Foram utilizados 5 folds e 3 vizinhos.
 
-Arquivo principal: main.c
--> Dados de "diabetes.cvs";
--> Informações detalhadas de cada teste em "detalhes.txt";
--> Acurácia e F1 de cada fold de teste em "metricas.cvs";
+Dados: diabetes.csv
 
-Constantes: NUM_CLASSES, TAM_LINHA, K_FOLDS em NoLib.c
+Para compilar: make
+Para executar: .\CrossFold_Kvizinhos
+
+Arquivos de saída: metricas.csv e detalhes.txt
