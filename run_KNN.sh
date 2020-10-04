@@ -3,6 +3,7 @@
 echo "Alg K-NearestNeighborsENXUTO"
 cd emb_exemplo
 cd K-NearestNeighborsENXUTO
+make clean
 ls
 arm-linux-gnueabi-gcc -static mainTUDO.c -lm -o CrossFold_Kvizinhos
 cd ..
