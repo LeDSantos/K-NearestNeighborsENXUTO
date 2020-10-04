@@ -283,7 +283,7 @@ void normaliza(No **lista){
 }
 
 /*um fold escolhido para teste e o restante são treino, saida na tela e nos arquivos passados*/
-void k_vizinhos(No *fold[K_FOLDS], int escolhido_teste, FILE *detalhes, FILE *metricas){
+void k_vizinhos(No *fold[K_FOLDS], int escolhido_teste){//, FILE *detalhes, FILE *metricas){
     No *teste;
     No *treino;
     Dist *euclidiana;
@@ -296,16 +296,16 @@ void k_vizinhos(No *fold[K_FOLDS], int escolhido_teste, FILE *detalhes, FILE *me
     Dist *elemento_menor;
 
     printf("\n-----------------------------------------------------------\nCONJUNTO DE TESTE fold: %d\n", escolhido_teste);
-    fprintf(detalhes, "\n-----------------------------------------------------------\nCONJUNTO DE TESTE fold: %d\n", escolhido_teste);
+    //fprintf(detalhes, "\n-----------------------------------------------------------\nCONJUNTO DE TESTE fold: %d\n", escolhido_teste);
 
     printf("CONJUNTO DE TREINO: ");
-    fprintf(detalhes, "CONJUNTO DE TREINO: ");
+    //fprintf(detalhes, "CONJUNTO DE TREINO: ");
     for(i=(escolhido_teste + 1) % K_FOLDS; i != escolhido_teste; i=((i+1) % K_FOLDS)){
         printf("fold %d\t",i);
-        fprintf(detalhes, "fold %d\t",i);
+        //fprintf(detalhes, "fold %d\t",i);
     }
     printf("\n");
-    fprintf(detalhes, "\n");
+    //fprintf(detalhes, "\n");
 
     //cria lista q irá receber as distâncias e atributos alvo relacionados
     euclidiana=dist_criar_lista();
@@ -342,26 +342,26 @@ void k_vizinhos(No *fold[K_FOLDS], int escolhido_teste, FILE *detalhes, FILE *me
         }
 
         if(soma_saidas >= 1+(K_VIZINHOS/2)){//2 ou mais diabéticos
-            fprintf(detalhes, "DIABETICO-> ");
+            //fprintf(detalhes, "DIABETICO-> ");
             printf("DIABETICO-> ");
             if(teste->classe[8] == 1.0){
-                fprintf(detalhes, "acertou\n");
+                //fprintf(detalhes, "acertou\n");
                 printf("acertou\n");
                 VP++;
             }else{
-                fprintf(detalhes,"errou\n");
+                //fprintf(detalhes,"errou\n");
                 printf("errou\n");
                 FN++;
             }
         }else{            
-            fprintf(detalhes, "NORMAL-> ");
+            //fprintf(detalhes, "NORMAL-> ");
             printf("NORMAL-> ");
             if(teste->classe[8] == 0.0){
-                fprintf(detalhes, "acertou\n");
+                //fprintf(detalhes, "acertou\n");
                 printf("acertou\n");
                 VN++;
             }else{
-                fprintf(detalhes,"errou\n");
+                //fprintf(detalhes,"errou\n");
                 printf("errou\n");
                 FP++;
             }
@@ -389,12 +389,12 @@ void k_vizinhos(No *fold[K_FOLDS], int escolhido_teste, FILE *detalhes, FILE *me
     Fbeta=(1+ BETA*BETA) * (prec*rev) / (BETA*BETA*prec + rev);
     acuracia_Fbeta[escolhido_teste][1]=Fbeta;//guarda Fbeta
             
-    fprintf(detalhes, "\t+\t-\t\n+\t%d\t%d\n-\t%d\t%d\n", VP, FN, FP, VN);
-    fprintf(detalhes, "Acuracia: %.10f\tRev: %.10f\tPrec: %.10f\nF1: %.10f\n", acc, rev, prec, Fbeta);
+    //fprintf(detalhes, "\t+\t-\t\n+\t%d\t%d\n-\t%d\t%d\n", VP, FN, FP, VN);
+    //fprintf(detalhes, "Acuracia: %.10f\tRev: %.10f\tPrec: %.10f\nF1: %.10f\n", acc, rev, prec, Fbeta);
 
     printf("Acuracia: %.10f\tRev: %.10f\tPrec: %.10f\nF1: %.10f\n", acc, rev, prec, Fbeta);
 
-    fprintf(metricas, "%d;%f;%f\n", escolhido_teste, acc, Fbeta);
+    //fprintf(metricas, "%d;%f;%f\n", escolhido_teste, acc, Fbeta);
 
     return;
 }
@@ -402,7 +402,7 @@ void k_vizinhos(No *fold[K_FOLDS], int escolhido_teste, FILE *detalhes, FILE *me
 int main(){
     No* lista;
     No* folds[K_FOLDS];
-    FILE *metricas, *detalhes;
+    //FILE *metricas, *detalhes;
 	//FILE *fonte;
     //char linha[100];
     
@@ -413,7 +413,7 @@ int main(){
     }
 
     //ABRE ARQUIVOS
-    if( (metricas = fopen("/home/orgb/gem5/emb_exemplo/K-NearestNeighborsENXUTO/metricas.csv", "w")) == NULL ){
+    /*if( (metricas = fopen("/home/orgb/gem5/emb_exemplo/K-NearestNeighborsENXUTO/metricas.csv", "w")) == NULL ){
         printf("ERRO AO ABRIR O ARQUIVO DE SAIDA\n");
         return 1;
     }
@@ -423,7 +423,7 @@ int main(){
         printf("ERRO AO ABRIR O ARQUIVO DE SAIDA\n");
         return 1;
     }
-    fputs("Detalhes do processo de treinamento\n", detalhes);
+    fputs("Detalhes do processo de treinamento\n", detalhes);*/
 
     /*if( (fonte = fopen("/home/orgb/gem5/emb_exemplo/K-NearestNeighborsENXUTO/diabetes.csv", "r")) == NULL ){
         printf("ERRO AO ABRIR O ARQUIVO\n");
@@ -443,13 +443,13 @@ int main(){
 	printf("\nDADOS CARREGADOS\n");
 
     //NUMEROS QUE SERÃO USADOS NA NORMALIZAÇÃO
-    fprintf(detalhes, "MENORES PARA NORMALIZAR\n");
+    printf("MENORES PARA NORMALIZAR\n");
     for(int i=0; i<NUM_CLASSES-1; i++){
-        fprintf(detalhes, "%f\t", menores[i]);
+        printf("%f\t", menores[i]);
     }
-    fprintf(detalhes, "\nMAIORES PARA NORMALIZAR\n");
+    printf("\nMAIORES PARA NORMALIZAR\n");
     for(int i=0; i<NUM_CLASSES-1; i++){
-        fprintf(detalhes, "%f\t", maiores[i]);
+        printf("%f\t", maiores[i]);
     }
 
     normaliza(&lista);
@@ -457,12 +457,12 @@ int main(){
     divideKfolds(&lista, folds);
 
     for(int i=0; i<1;i++){//realiza k_vizinhos no fold 0, colocar K_FOLDS no lugar do 1 para todos os folds
-        k_vizinhos(folds, i, detalhes, metricas);
+        k_vizinhos(folds, i);//, detalhes, metricas);
     }
 
     //fclose(fonte);
-    fclose(detalhes);
-    fclose(metricas);
+    //fclose(detalhes);
+    //fclose(metricas);
     printf("FIMMMMMMMMMMMM");
     return 0;
 }
